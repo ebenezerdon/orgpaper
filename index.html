@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OrgPaper – Beautiful Org Charts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss-cdn@3.4.10/tailwindcss.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="styles/main.css">
+  <meta name="description" content="Build dynamic company org charts with teams, reporting lines, personal bios, and change history snapshots.">
+  <style type="text/tailwindcss" data-teda="tailwind-apply">
+    @layer components {
+      .btn-primary { @apply bg-[#44403C] text-white px-5 py-3 rounded-lg shadow-lg hover:bg-[#3A3632] active:bg-[#2F2C28] focus:outline-none focus:ring-2 focus:ring-[#E7E5E4] whitespace-nowrap transition-all duration-300; }
+      .btn-secondary { @apply bg-white border border-[#E7E5E4] text-[#1C1917] px-5 py-3 rounded-lg shadow-sm hover:bg-[#FAFAF9] focus:outline-none focus:ring-2 focus:ring-[#E7E5E4] whitespace-nowrap transition-all duration-300; }
+      .chip-accent { @apply inline-flex items-center px-2 py-1 text-xs rounded-full border border-[#E7E5E4] text-[#1C1917] bg-white; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#FAFAF9] text-[#1C1917] antialiased">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-white focus:text-[#1C1917] focus:px-4 focus:py-2 focus:rounded-md focus:ring-2 focus:ring-[#E7E5E4]">Skip to content</a>
+
+  <header class="w-full py-5">
+    <div class="mx-auto max-w-7xl px-6 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/logo.svg" alt="OrgPaper logo" class="h-9 w-9">
+        <span class="font-semibold tracking-tight" style="font-family: 'Inter Tight', sans-serif;">OrgPaper</span>
+      </div>
+      <nav class="hidden sm:flex items-center gap-6" aria-label="Primary">
+        <a href="#features" class="text-sm text-[#78716C] hover:text-[#1C1917] transition">Features</a>
+        <a href="#story" class="text-sm text-[#78716C] hover:text-[#1C1917] transition">How it works</a>
+        <a href="#faq" class="text-sm text-[#78716C] hover:text-[#1C1917] transition">FAQ</a>
+        <a href="app.html" class="btn-secondary text-sm">Open App</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO: centered vertical stack -->
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="mx-auto max-w-7xl h-full px-6">
+          <div class="absolute -top-24 right-0 w-72 h-72 rounded-full bg-white shadow-xl ring-1 ring-[#E7E5E4] opacity-60 blur-0"></div>
+          <div class="absolute -bottom-16 -left-10 w-40 h-40 rounded-xl bg-white shadow-lg ring-1 ring-[#E7E5E4] opacity-70 rotate-6"></div>
+        </div>
+      </div>
+      <div class="mx-auto max-w-3xl px-6 pt-16 pb-14 text-center">
+        <img src="assets/logo.svg" alt="" class="mx-auto mb-6 h-12 w-12 opacity-90">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6" style="font-family: 'Inter Tight', sans-serif;">
+          Your org chart, finally delightful
+        </h1>
+        <p class="text-base sm:text-lg md:text-xl text-[#78716C] max-w-2xl mx-auto leading-relaxed" style="font-family: 'Inter', sans-serif;">
+          Build dynamic company org charts with teams, reporting lines, rich bios, and a living history of every change. Designed to feel like premium stationery.
+        </p>
+        <div class="mt-10 flex flex-col items-center gap-3">
+          <a href="app.html" class="btn-primary text-base">Launch OrgPaper</a>
+          <button id="scrollMore" class="btn-secondary text-base">See how it works</button>
+        </div>
+        <div class="mt-8 flex items-center justify-center gap-3 text-sm text-[#78716C]" style="font-family: 'Inter', sans-serif;">
+          <span class="chip-accent">No sign-up</span>
+          <span class="chip-accent">Private by default</span>
+          <span class="chip-accent">Runs in your browser</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features: magazine style cards (no grid), organic stacking -->
+    <section id="features" class="mx-auto max-w-7xl px-6 py-12">
+      <div class="mb-10">
+        <h2 class="text-2xl sm:text-3xl font-bold" style="font-family: 'Inter Tight', sans-serif;">Why teams choose OrgPaper</h2>
+      </div>
+      <div class="space-y-8">
+        <div class="relative">
+          <div class="max-w-3xl bg-white rounded-2xl shadow-xl ring-1 ring-[#E7E5E4] p-6 md:p-8 hover:shadow-2xl transition-all duration-300">
+            <h3 class="text-xl font-semibold mb-2" style="font-family: 'Inter Tight', sans-serif;">Real structure, real context</h3>
+            <p class="text-[#78716C]" style="font-family: 'Inter', sans-serif;">Create teams, assign managers, and capture full bios with contact details. The chart is interactive and collapsible for fast navigation.</p>
+          </div>
+        </div>
+        <div class="relative md:ml-24">
+          <div class="bg-white rounded-2xl shadow-xl ring-1 ring-[#E7E5E4] p-6 md:p-8 hover:shadow-2xl transition-all duration-300">
+            <h3 class="text-xl font-semibold mb-2" style="font-family: 'Inter Tight', sans-serif;">Snapshots that tell the story</h3>
+            <p class="text-[#78716C]" style="font-family: 'Inter', sans-serif;">Capture a moment in time and compare changes across snapshots. See who joined, who moved, and how teams evolved.</p>
+          </div>
+        </div>
+        <div class="relative md:max-w-4xl md:ml-auto">
+          <div class="bg-white rounded-2xl shadow-xl ring-1 ring-[#E7E5E4] p-6 md:p-8 hover:shadow-2xl transition-all duration-300">
+            <h3 class="text-xl font-semibold mb-2" style="font-family: 'Inter Tight', sans-serif;">Private and portable</h3>
+            <p class="text-[#78716C]" style="font-family: 'Inter', sans-serif;">Everything runs locally in your browser. Export and import your org as JSON anytime.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="story" class="bg-white/60 border-t border-[#E7E5E4]">
+      <div class="mx-auto max-w-7xl px-6 py-14">
+        <div class="max-w-2xl mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold" style="font-family: 'Inter Tight', sans-serif;">How it works</h2>
+          <p class="text-[#78716C] mt-2" style="font-family: 'Inter', sans-serif;">Add your people, set reporting lines, and keep a living record of changes. It feels like sketching on paper, but with the power of structured data.</p>
+        </div>
+        <ol class="space-y-6">
+          <li class="flex items-start gap-4">
+            <span class="h-8 w-8 shrink-0 rounded-full bg-[#D97706] text-white flex items-center justify-center font-semibold">1</span>
+            <div>
+              <p class="font-medium" style="font-family: 'Inter Tight', sans-serif;">Start with a template</p>
+              <p class="text-[#78716C]" style="font-family: 'Inter', sans-serif;">Open the app to see a ready-to-edit sample org.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="h-8 w-8 shrink-0 rounded-full bg-[#D97706] text-white flex items-center justify-center font-semibold">2</span>
+            <div>
+              <p class="font-medium" style="font-family: 'Inter Tight', sans-serif;">Shape your chart</p>
+              <p class="text-[#78716C]" style="font-family: 'Inter', sans-serif;">Add teams, edit bios, reassign managers, and collapse branches as you go.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="h-8 w-8 shrink-0 rounded-full bg-[#D97706] text-white flex items-center justify-center font-semibold">3</span>
+            <div>
+              <p class="font-medium" style="font-family: 'Inter Tight', sans-serif;">Capture snapshots</p>
+              <p class="text-[#78716C]" style="font-family: 'Inter', sans-serif;">Compare any two points in time to see what changed.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="mt-10">
+          <a href="app.html" class="btn-primary">Build your org chart</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="mx-auto max-w-7xl px-6 py-14">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-6" style="font-family: 'Inter Tight', sans-serif;">FAQ</h2>
+        <div class="divide-y divide-[#E7E5E4]">
+          <details class="py-4 group">
+            <summary class="cursor-pointer list-none flex items-center justify-between"><span class="font-medium" style="font-family: 'Inter Tight', sans-serif;">Where is my data stored?</span><span class="text-[#78716C] group-open:rotate-180 transition">&#9662;</span></summary>
+            <p class="mt-3 text-[#78716C]" style="font-family: 'Inter', sans-serif;">All data stays in your browser via local storage. You can export and import as JSON.</p>
+          </details>
+          <details class="py-4 group">
+            <summary class="cursor-pointer list-none flex items-center justify-between"><span class="font-medium" style="font-family: 'Inter Tight', sans-serif;">Can I print the chart?</span><span class="text-[#78716C] group-open:rotate-180 transition">&#9662;</span></summary>
+            <p class="mt-3 text-[#78716C]" style="font-family: 'Inter', sans-serif;">Yes. Use your browser's print and OrgPaper will format the view for paper.</p>
+          </details>
+        </div>
+      </div>
+      <div class="mt-10">
+        <a href="app.html" class="btn-primary">Open the App</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-[#E7E5E4] bg-white/60">
+    <div class="mx-auto max-w-7xl px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 text-sm text-[#78716C]" style="font-family: 'Inter', sans-serif;">
+        <img src="assets/logo.svg" alt="" class="h-5 w-5">
+        <span>OrgPaper</span>
+      </div>
+      <p class="text-sm text-[#78716C]" style="font-family: 'Inter', sans-serif;">Built for thoughtful teams.</p>
+    </div>
+  </footer>
+
+  <script>
+    $(function(){
+      $('#scrollMore').on('click', function(){
+        const y = $('#features').offset().top - 20;
+        $('html, body').animate({ scrollTop: y }, 500);
+      });
+    });
+  </script>
+  <script src="scripts/helpers.js"></script>
+  <script src="scripts/ui.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

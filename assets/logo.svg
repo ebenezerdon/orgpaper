@@ -1,0 +1,16 @@
+<svg width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OrgPaper logo">
+  <defs>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#E7E5E4"/>
+    </filter>
+  </defs>
+  <rect x="10" y="10" width="120" height="120" rx="24" fill="#FFFFFF" stroke="#E7E5E4" filter="url(#s)"/>
+  <!-- Nodes -->
+  <circle cx="70" cy="45" r="12" fill="#44403C"/>
+  <circle cx="45" cy="85" r="10" fill="#D97706"/>
+  <circle cx="95" cy="85" r="10" fill="#D97706"/>
+  <!-- Connectors -->
+  <path d="M70 57 L70 70 M70 70 L45 70 M70 70 L95 70" stroke="#E7E5E4" stroke-width="3" stroke-linecap="round"/>
+  <!-- Mark -->
+  <text x="70" y="118" text-anchor="middle" font-family="Inter Tight, sans-serif" font-size="16" fill="#1C1917">OP</text>
+</svg>

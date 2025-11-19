@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OrgPaper App – Dynamic Org Charts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss-cdn@3.4.10/tailwindcss.js"></script>
+  <link rel="stylesheet" href="styles/main.css">
+  <style type="text/tailwindcss" data-teda="tailwind-apply">
+    @layer components {
+      .btn-primary { @apply bg-[#44403C] text-white px-4 py-2 rounded-lg shadow-lg hover:bg-[#3A3632] active:bg-[#2F2C28] focus:outline-none focus:ring-2 focus:ring-[#E7E5E4] whitespace-nowrap transition-all duration-300; }
+      .btn-secondary { @apply bg-white border border-[#E7E5E4] text-[#1C1917] px-4 py-2 rounded-lg shadow-sm hover:bg-[#FAFAF9] focus:outline-none focus:ring-2 focus:ring-[#E7E5E4] whitespace-nowrap transition-all duration-300; }
+      .btn-ghost { @apply text-[#44403C] hover:bg-[#FAFAF9] rounded-md px-2 py-1 transition; }
+      .input { @apply w-full rounded-lg border border-[#E7E5E4] bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E7E5E4]; }
+      .label { @apply block text-sm text-[#78716C] mb-1; }
+      .card { @apply bg-white rounded-xl shadow-lg ring-1 ring-black/5; }
+      .pill { @apply inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full border border-[#E7E5E4] bg-white; }
+      .heading { @apply font-bold; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#FAFAF9] text-[#1C1917] antialiased">
+  <a href="#content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-white focus:text-[#1C1917] focus:px-4 focus:py-2 focus:rounded-md focus:ring-2 focus:ring-[#E7E5E4]">Skip to content</a>
+  <header class="sticky top-0 z-40 bg-[#FAFAF9]/90 backdrop-blur border-b border-[#E7E5E4]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="assets/logo.svg" alt="OrgPaper" class="h-8 w-8">
+          <span class="font-semibold tracking-tight" style="font-family: 'Inter Tight', sans-serif;">OrgPaper</span>
+        </a>
+      </div>
+      <div class="hidden md:flex items-center gap-2">
+        <button id="btnSnapshot" class="btn-secondary">Take Snapshot</button>
+        <button id="btnExport" class="btn-secondary">Export</button>
+        <label for="fileImport" class="btn-secondary cursor-pointer">Import</label>
+        <input id="fileImport" type="file" accept="application/json" class="hidden" aria-label="Import JSON">
+        <a href="#" id="btnPrint" class="btn-primary">Print</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="content" class="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- Sidebar: Teams & Search -->
+      <aside class="w-full lg:w-72 shrink-0">
+        <div class="card p-4">
+          <div class="flex items-center gap-2">
+            <input id="search" type="search" placeholder="Search people" class="input" aria-label="Search people">
+          </div>
+          <div class="mt-4">
+            <div class="flex items-center justify-between">
+              <h2 class="text-sm heading" style="font-family: 'Inter Tight', sans-serif;">Teams</h2>
+              <button id="btnAddTeam" class="btn-ghost text-sm" aria-label="Add team">+ Add</button>
+            </div>
+            <ul id="teamsPanel" class="mt-2 space-y-1" role="list"></ul>
+          </div>
+        </div>
+        <div class="card p-4 mt-4">
+          <h2 class="text-sm heading mb-2" style="font-family: 'Inter Tight', sans-serif;">Snapshots</h2>
+          <div id="snapshotsMini" class="space-y-2 max-h-64 overflow-auto pr-1" aria-live="polite"></div>
+        </div>
+      </aside>
+
+      <!-- Main: Org Chart -->
+      <section class="grow min-w-0">
+        <div class="card p-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <button id="btnAddPerson" class="btn-primary">Add Person</button>
+              <button id="btnExpandAll" class="btn-secondary">Expand All</button>
+              <button id="btnCollapseAll" class="btn-secondary">Collapse All</button>
+            </div>
+            <div class="text-sm text-[#78716C]">Drag to scroll horizontally</div>
+          </div>
+          <div id="chartScroll" class="org-scroll mt-4" tabindex="0" aria-label="Organization chart">
+            <div id="chartPanel" class="org-tree" role="tree"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: History & Diff -->
+      <aside class="w-full lg:w-80 shrink-0">
+        <div class="card p-4">
+          <h2 class="text-sm heading" style="font-family: 'Inter Tight', sans-serif;">Compare Snapshots</h2>
+          <div class="mt-3 grid grid-cols-1 gap-3">
+            <div>
+              <label class="label" for="compareA">Snapshot A</label>
+              <select id="compareA" class="input"></select>
+            </div>
+            <div>
+              <label class="label" for="compareB">Snapshot B</label>
+              <select id="compareB" class="input"></select>
+            </div>
+            <button id="btnCompare" class="btn-secondary">Compare</button>
+          </div>
+          <div id="diffPanel" class="mt-4 text-sm space-y-3" aria-live="polite"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Modals root -->
+  <div id="modals-root"></div>
+  <div id="toasts-root" class="fixed bottom-4 right-4 space-y-2 z-50"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="scripts/helpers.js"></script>
+  <script src="scripts/ui.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

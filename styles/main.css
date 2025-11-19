@@ -1,0 +1,82 @@
+/* Base styles for OrgPaper */
+:root {
+  --bg: #FAFAF9;
+  --surface: #FFFFFF;
+  --border: #E7E5E4;
+  --text: #1C1917;
+  --muted: #78716C;
+  --primary: #44403C;
+  --accent: #D97706;
+}
+
+html, body { height: 100%; }
+
+/* Org chart tree connectors */
+.org-scroll {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.org-tree {
+  min-width: 800px;
+  padding: 24px 16px 32px 16px;
+}
+
+.org-tree ul { padding-left: 0; }
+
+.org-node { display: inline-block; text-align: center; position: relative; }
+.org-children { margin-top: 16px; padding-left: 0; }
+.org-children > li { list-style: none; position: relative; padding: 16px 12px; display: inline-block; }
+
+/* connector lines */
+.org-children > li::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 2px; height: 16px; background: var(--border);
+}
+
+.org-children { position: relative; }
+.org-children::before {
+  content: ""; position: absolute; top: 0; left: 12px; right: 12px; height: 2px; background: var(--border);
+}
+
+/* Node card */
+.node-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  min-width: 220px;
+  max-width: 280px;
+  padding: 12px;
+}
+
+.node-actions button { white-space: nowrap; }
+
+.node-collapsed .org-children { display: none; }
+
+/* Avatar */
+.avatar {
+  width: 40px; height: 40px; border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center; background: #FFF; border: 1px solid var(--border); color: var(--primary); font-weight: 600;
+}
+
+/* Scroll drag hint */
+.org-scroll:active { cursor: grabbing; }
+
+/* Modal styles */
+.modal-overlay { position: fixed; inset: 0; background: rgba(28,25,23,0.4); display: flex; align-items: flex-end; justify-content: center; padding: 16px; z-index: 60; }
+@media (min-width: 640px) { .modal-overlay { align-items: center; } }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); width: 100%; max-width: 640px; }
+
+/* Toast */
+.toast { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.12); padding: 10px 12px; font-size: 14px; }
+
+/* Print optimizations */
+@media print {
+  header, aside, #toasts-root, #modals-root, .btn-primary, .btn-secondary { display: none !important; }
+  .org-scroll { border: none; }
+}
